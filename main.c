@@ -1,8 +1,11 @@
 #include <stdio.h>
-#include <stdlib.h>
+#include "functions.h"
 
 int main(){
-    printf("Bom dia");
+    int A[2] = {1, 2};
+
+    int* ve = bubble_sort(A);
+    printf("%d", ve[0]);
 
     return 0;
 }
