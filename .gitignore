@@ -1,0 +1,3 @@
+# Gerados na hora da compilação
+*.exe
+/.vscode
