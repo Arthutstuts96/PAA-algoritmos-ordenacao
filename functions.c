@@ -1,9 +1,24 @@
 #include "functions.h"
 #include <stdio.h>
 
-int* bubble_sort(int* vetor){
-    vetor[0] = 9;
-    return vetor;
+/* Funções auxiliares */
+
+void exchange(int* a, int* b){
+    *a = *a + *b;
+    *b = *a - *b;
+    *a = *a - *b;
+}
+
+/* Algoritmos */
+
+void bubble_sort(int* vetor, int tamanho){
+    for (int i = 0; i < tamanho; i++){
+        for (int j = tamanho - 1; j > i; j--){
+            if(vetor[j] < vetor[j - 1]){
+                exchange(&vetor[j], &vetor[j - 1]);
+            }
+        }
+    }
 }
 int* selection_sort(int* vetor){
 

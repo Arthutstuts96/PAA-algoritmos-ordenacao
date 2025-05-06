@@ -1,11 +1,21 @@
 #ifndef FUNCTIONS_H
 #define FUNCTIONS_H
 
-int* bubble_sort(int* vetor);
-int* selection_sort(int* vetor);
-int* insertion_sort(int* vetor);
-int* merge_sort(int* vetor);
-int* quick_sort(int* vetor);
-int* heap_sort(int* vetor);
+/* Lista de 1000, 10000, 50000 e 100000 entradas
+Ordenada
+Inversamente ordenada
+Aleatória
+
+Tempo de execução (em milissegundos)
+Número de comparações
+Número de trocas
+*/
+
+void bubble_sort(int* , int);
+int* selection_sort(int* );
+int* insertion_sort(int* );
+int* merge_sort(int* );
+int* quick_sort(int* );
+int* heap_sort(int* );
 
 #endif
