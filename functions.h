@@ -11,11 +11,11 @@ Número de comparações
 Número de trocas
 */
 
-void bubble_sort(int* , int);
-int* selection_sort(int* );
-int* insertion_sort(int* );
-int* merge_sort(int* );
-int* quick_sort(int* );
-int* heap_sort(int* );
+void bubble_sort(int *, int);
+void selection_sort(int *, int);
+void insertion_sort(int *, int);
+void merge_sort(int *, int, int);
+void quick_sort(int *, int, int);
+void heap_sort(int *, int);
 
 #endif
