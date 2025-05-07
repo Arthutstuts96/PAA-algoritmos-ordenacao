@@ -6,6 +6,7 @@
 
 int* ler_arquivo(const char* nome_arquivo, int* tamanho) {
     char caminho[100];
+    //Mude o caminho da pasta para usar outros tipos de entradas
     snprintf(caminho, sizeof(caminho), "entradas/%s", nome_arquivo);
 
     FILE* arquivo = fopen(caminho, "r");
@@ -125,6 +126,7 @@ int main() {
             case 5: printf("Quick Sort"); break;
         }
         printf("\n-- Tempo de execucao: %.15f segundos\n", tempo);
+        // print_vetor(vetor, tamanho);
 
         free(vetor);
     }
