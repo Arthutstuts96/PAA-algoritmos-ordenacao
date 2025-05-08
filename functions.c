@@ -14,7 +14,7 @@ void trocaValor(int *x, int *y) {
 /*
     Justa os dois vetores e retorna um terceiro ordenado para a função merge sort
 */
-void merge(int* vetor, int inicio, int meio, int fim){
+void merge(int* vetor, int inicio, int meio, int fim, long int* comp){
     int i = 0;
     int j = 0;
     int k = inicio;
@@ -40,6 +40,7 @@ void merge(int* vetor, int inicio, int meio, int fim){
     //Compara os valores para ordená-los no vetor
     while (i < tamanhoLadoEsquerdo && j < tamanhoLadoDireito) {
         if (ladoEsquerdo[i] <= ladoDireito[j]) {
+            (*comp)++;
             vetor[k] = ladoEsquerdo[i];
             i++;
         }
@@ -48,6 +49,7 @@ void merge(int* vetor, int inicio, int meio, int fim){
             j++;
         }
         k++;
+
     }
 
     //Copia o resto dos elementos de ambos arrays, se tiverem
@@ -68,23 +70,25 @@ void merge(int* vetor, int inicio, int meio, int fim){
 /*
     Particiona o vetor em 3 partes para a função quick sort
 */
-int partition(int* vetor, int inicio, int fim){
+int partition(int* vetor, int inicio, int fim, long int* comp){
     int v = vetor[fim];
     int q = inicio - 1;
 
     for(int i = inicio; i <= fim - 1; i++){
         if(vetor[i] < v){
+            (*comp)++; 
             q++;
             trocaValor(&vetor[i], &vetor[q]);
         }
     }
+
     trocaValor(&vetor[fim], &vetor[q + 1]);
     return q + 1;
 }
 /*
     Compara os valores da heap e inverte baseado no maior e menor
 */
-void heapify(int* vetor, int n, int i)
+void heapify(int* vetor, int n, int i, long int* comp)
 {
     int temp, maiorValor;
 
@@ -101,70 +105,81 @@ void heapify(int* vetor, int n, int i)
 
     //Verifica se os valores restantes são iguais ou não
     if (maiorValor != i) {
+        (*comp)++; 
         trocaValor(&vetor[i], &vetor[maiorValor]);
-        heapify(vetor, n, maiorValor);
+        heapify(vetor, n, maiorValor, comp);
     }
 }
 
 /* Algoritmos */
 
 void bubble_sort(int* vetor, int tamanho){
+    long int comp = 0;
     for (int i = 0; i < tamanho; i++){
         for (int j = tamanho - 1; j > i; j--){
             if(vetor[j] < vetor[j - 1]){
+                comp++;
                 trocaValor(&vetor[j], &vetor[j - 1]);
             }
         }
     }
+    printf("--------> Comparações: %ld\n", comp);
 }
 void insertion_sort(int* vetor, int tamanho){
+    long int comp = 0;
     for (int j = 0; j < tamanho; j++){
         int key = vetor[j];
         int i = j - 1;
         while(i >= 0 && vetor[i] > key){
+            comp++;
             vetor[i + 1] = vetor[i];
             i--;
         }
         vetor[i + 1] = key;
     }
+    printf("--------> Comparações: %ld\n", comp);
 }
 void selection_sort(int* vetor, int tamanho){
+    long int comp = 0;
     for(int i = 0; i < tamanho - 1; i++){
         int menorValor = i;
         for(int j = i + 1; j < tamanho; j++){
             if(vetor[j] < vetor[menorValor]){
+                comp++;
                 menorValor = j;
             }
         }
         trocaValor(&vetor[i], &vetor[menorValor]);
     }
+    printf("--------> Comparações: %ld\n", comp);
 }
-void merge_sort(int* vetor, int inicio, int fim){
+void merge_sort(int* vetor, int inicio, int fim, long int* comp){
     if(inicio < fim){
         int meio = inicio + (fim - inicio) / 2;
-    
-        merge_sort(vetor, inicio, meio);
-        merge_sort(vetor, meio + 1, fim);
-    
-        merge(vetor, inicio, meio, fim);
-    }
-}
-void quick_sort(int* vetor, int inicio, int fim){
-    if(inicio < fim){
-        int q = partition(vetor, inicio, fim);
 
-        quick_sort(vetor, inicio, q - 1);
-        quick_sort(vetor, q + 1, fim);
+        merge_sort(vetor, inicio, meio, comp);
+        merge_sort(vetor, meio + 1, fim, comp);
+
+        merge(vetor, inicio, meio, fim, comp);
     }
 }
-void heap_sort(int* vetor, int tamanho){
+void quick_sort(int* vetor, int inicio, int fim, long int* comp){
+    if(inicio < fim){
+        int q = partition(vetor, inicio, fim, comp);
+
+        quick_sort(vetor, inicio, q - 1, comp);
+        quick_sort(vetor, q + 1, fim, comp);
+    }
+}
+void heap_sort(int* vetor, int tamanho, long int* comp){
     int i;
 
     for (i = tamanho / 2 - 1; i >= 0; i--) {
-        heapify(vetor, tamanho, i);
+        heapify(vetor, tamanho, i, comp);
     }
     for (i = tamanho - 1; i > 0; i--) {
+        (*comp)++;
         trocaValor(&vetor[0], &vetor[i]);
-        heapify(vetor, i, 0);
+        heapify(vetor, i, 0, comp);
     }
 }

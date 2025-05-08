@@ -6,7 +6,7 @@
 
 int* ler_arquivo(const char* nome_arquivo, int* tamanho) {
     char caminho[100];
-    
+
     //Mude o caminho da pasta para usar outros tipos de entradas
     snprintf(caminho, sizeof(caminho), "entradas/%s", nome_arquivo);
 
@@ -56,6 +56,7 @@ void print_vetor(int* A, int tamanho){
 }
 
 int main() {
+    long int comp = 0;
     int opcao_alg, opcao_entrada;
     char* nomes_arquivos[] = {
         "entrada-1k.txt",
@@ -111,9 +112,9 @@ int main() {
             case 1: bubble_sort(vetor, tamanho); break;
             case 2: insertion_sort(vetor, tamanho); break;
             case 3: selection_sort(vetor, tamanho); break;
-            case 4: merge_sort(vetor, 0, tamanho - 1); break;
-            case 5: quick_sort(vetor, 0, tamanho - 1); break;
-            case 6: heap_sort(vetor, tamanho); break;
+            case 4: merge_sort(vetor, 0, tamanho - 1, &comp); break;
+            case 5: quick_sort(vetor, 0, tamanho - 1, &comp); break;
+            case 6: heap_sort(vetor, tamanho, &comp); break;
         }
 
         clock_t fim = clock();
@@ -130,8 +131,10 @@ int main() {
             case 6: printf("Heap Sort"); break;
         }
         printf("\n-- Tempo de execucao: %.15f segundos\n", tempo);
+        // printf("--------> Comparações: %ld\n", comp);
+        
         // print_vetor(vetor, tamanho);
-
+        comp = 0;
         free(vetor);
     }
 
