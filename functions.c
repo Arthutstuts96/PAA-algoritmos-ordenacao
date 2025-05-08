@@ -81,6 +81,30 @@ int partition(int* vetor, int inicio, int fim){
     trocaValor(&vetor[fim], &vetor[q + 1]);
     return q + 1;
 }
+/*
+    Compara os valores da heap e inverte baseado no maior e menor
+*/
+void heapify(int* vetor, int n, int i)
+{
+    int temp, maiorValor;
+
+    maiorValor = i;
+
+    int direita = 2 * i + 2;
+    int esquerda = 2 * i + 1;
+
+    if (esquerda < n && vetor[esquerda] > vetor[maiorValor])
+        maiorValor = esquerda;
+
+    if (direita < n && vetor[direita] > vetor[maiorValor])
+        maiorValor = direita;
+
+    //Verifica se os valores restantes são iguais ou não
+    if (maiorValor != i) {
+        trocaValor(&vetor[i], &vetor[maiorValor]);
+        heapify(vetor, n, maiorValor);
+    }
+}
 
 /* Algoritmos */
 
@@ -134,5 +158,13 @@ void quick_sort(int* vetor, int inicio, int fim){
     }
 }
 void heap_sort(int* vetor, int tamanho){
+    int i;
 
+    for (i = tamanho / 2 - 1; i >= 0; i--) {
+        heapify(vetor, tamanho, i);
+    }
+    for (i = tamanho - 1; i > 0; i--) {
+        trocaValor(&vetor[0], &vetor[i]);
+        heapify(vetor, i, 0);
+    }
 }

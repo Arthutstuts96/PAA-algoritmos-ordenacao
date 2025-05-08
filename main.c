@@ -6,6 +6,7 @@
 
 int* ler_arquivo(const char* nome_arquivo, int* tamanho) {
     char caminho[100];
+    
     //Mude o caminho da pasta para usar outros tipos de entradas
     snprintf(caminho, sizeof(caminho), "entradas/%s", nome_arquivo);
 
@@ -89,12 +90,13 @@ int main() {
         printf("3 - Selection Sort\n");
         printf("4 - Merge Sort\n");
         printf("5 - Quick Sort\n");
+        printf("6 - Heap Sort\n");
         printf("0 - Voltar ao menu anterior\n");
         printf("Opcao: ");
         scanf("%d", &opcao_alg);
 
         if (opcao_alg == 0) continue;
-        if (opcao_alg < 1 || opcao_alg > 5) {
+        if (opcao_alg < 1 || opcao_alg > 6) {
             printf("Opcao de algoritmo invalida.\n");
             continue;
         }
@@ -111,6 +113,7 @@ int main() {
             case 3: selection_sort(vetor, tamanho); break;
             case 4: merge_sort(vetor, 0, tamanho - 1); break;
             case 5: quick_sort(vetor, 0, tamanho - 1); break;
+            case 6: heap_sort(vetor, tamanho); break;
         }
 
         clock_t fim = clock();
@@ -124,6 +127,7 @@ int main() {
             case 3: printf("Selection Sort"); break;
             case 4: printf("Merge Sort"); break;
             case 5: printf("Quick Sort"); break;
+            case 6: printf("Heap Sort"); break;
         }
         printf("\n-- Tempo de execucao: %.15f segundos\n", tempo);
         // print_vetor(vetor, tamanho);
